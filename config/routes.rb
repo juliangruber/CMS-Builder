@@ -57,4 +57,5 @@ Cms::Application.routes.draw do
   #match ':controller(/:action(/:id))(.:format)'
 
   resources :relationships
+  resources :content_types
 end
