@@ -25,6 +25,7 @@ class RelationshipsController < ApplicationController
   # GET /relationships/new.json
   def new
     @relationship = Relationship.new
+    @content_types = ContentType.all
 
     respond_to do |format|
       format.html # new.html.erb

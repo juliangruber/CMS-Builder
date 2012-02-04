@@ -11,9 +11,8 @@
     </div>
   <% end %>
 
-  From: <%= f.text_field(:from) %>
-  To: <%= f.text_field(:to) %>
-  Type: <%= f.text_field(:type) %>
+  1 <%= f.select(:from, ContentType.all.collect {|c| [c.name, c._id]}) %> has <%= f.select(:type, [[:no,0],[:one,1],[:many,2]]) %> <%= f.select(:to, ContentType.all.collect {|c| [c.name, c._id]}) %>
+  
 
   <div class="actions">
     <%= f.submit %>

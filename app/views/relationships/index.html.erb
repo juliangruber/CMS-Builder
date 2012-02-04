@@ -12,8 +12,8 @@
 
 <% @relationships.each do |relationship| %>
   <tr>
-    <td><%= relationship.from %></td>
-    <td><%= relationship.to %></td>
+    <td><%= ContentType.find(relationship.from).name %></td>
+    <td><%= ContentType.find(relationship.to).name %></td>
     <td><%= relationship.type %></td>
     <td><%= link_to 'Show', relationship %></td>
     <td><%= link_to 'Edit', edit_relationship_path(relationship) %></td>
