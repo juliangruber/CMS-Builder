@@ -11,7 +11,10 @@
     </div>
   <% end %>
 
-  1 <%= f.select(:from, ContentType.all.collect {|c| [c.name, c._id]}) %> has <%= f.select(:type, [[:no,0],[:one,1],[:many,2]]) %> <%= f.select(:to, ContentType.all.collect {|c| [c.name, c._id]}) %>
+  1 <%= f.select(:from_id, ContentType.all.collect {|c| [c.name, c._id]}) %>
+  has
+  <%= f.select(:type, [[:no,0],[:one,1],[:many,2]]) %>
+  <%= f.select(:to_id, ContentType.all.collect {|c| [c.name, c._id]}) %>
   
 
   <div class="actions">

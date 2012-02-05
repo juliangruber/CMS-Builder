@@ -2,9 +2,7 @@
 
 <table>
   <tr>
-    <th>from</th>
-    <th>to</th>
-    <th>type</th>
+    <th></th>
     <th></th>
     <th></th>
     <th></th>
@@ -12,9 +10,7 @@
 
 <% @relationships.each do |relationship| %>
   <tr>
-    <td><%= ContentType.find(relationship.from).name %></td>
-    <td><%= ContentType.find(relationship.to).name %></td>
-    <td><%= relationship.type %></td>
+    <td><%= relationship.from.name %> has <%= relationship.type %> <%= relationship.to.name %></td>
     <td><%= link_to 'Show', relationship %></td>
     <td><%= link_to 'Edit', edit_relationship_path(relationship) %></td>
     <td><%= link_to 'Destroy', relationship, confirm: 'Are you sure?', method: :delete %></td>

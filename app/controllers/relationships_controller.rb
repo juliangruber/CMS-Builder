@@ -45,6 +45,7 @@ class RelationshipsController < ApplicationController
 
     respond_to do |format|
       if @relationship.save
+        ContentType.add_relationship(@relationship)
         format.html { redirect_to @relationship, notice: 'Relationship was successfully created.' }
         format.json { render json: @relationship, status: :created, location: @relationship }
       else
@@ -74,6 +75,7 @@ class RelationshipsController < ApplicationController
   # DELETE /relationships/1.json
   def destroy
     @relationship = Relationship.find(params[:id])
+
     @relationship.destroy
 
     respond_to do |format|

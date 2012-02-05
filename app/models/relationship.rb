@@ -3,11 +3,6 @@ class Relationship
 
   key :type, Integer
 
-  one :from, :class_name => 'ContentType'
-  one :to, :class_name => 'ContentType'
-
-  #def from
-  	#"bla"
-  #	ContentType.all
-  #end
+  belongs_to :from, :class_name => 'ContentType', :typecast => 'ObjectId'
+  belongs_to :to, :class_name => 'ContentType', :typecast => 'ObjectId'
 end
