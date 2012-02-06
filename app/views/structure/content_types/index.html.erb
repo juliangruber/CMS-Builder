@@ -1,0 +1,23 @@
+<h1>Listing content_types</h1>
+
+<table>
+  <tr>
+    <th>Name</th>
+    <th></th>
+    <th></th>
+    <th></th>
+  </tr>
+
+<% @content_types.each do |content_type| %>
+  <tr>
+    <td><%= content_type.name %></td>
+    <td><%= link_to 'Show', structure_content_type_path(content_type) %></td>
+    <td><%= link_to 'Edit', edit_structure_content_type_path(content_type) %></td>
+    <td><%= link_to 'Destroy', structure_content_type_path(content_type), confirm: 'Are you sure?', method: :delete %></td>
+  </tr>
+<% end %>
+</table>
+
+<br />
+
+<%= link_to 'New Content type', new_structure_content_type_path %>
