@@ -1,8 +1,0 @@
-<div class="relationship">
- 	<%= f.fields_for :relationships, relationship, :index => nil do |f_nested| %>
-    	<%= f_nested.select(:type, Relationship.get_type_options) %>
-    	<%= f_nested.select(:to_id, ContentType.all.collect {|c| [c.name, c]}) %>
-    	<!-- TODO: Fix embedded JS -->
-    	<%= link_to_function "(remove)", "$(this).parent().remove()" %>
-	<% end %>
-</div>

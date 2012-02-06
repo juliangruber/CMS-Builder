@@ -44,7 +44,7 @@ class Structure::ContentTypesController < ApplicationController
 
     respond_to do |format|
       if @content_type.save
-        format.html { redirect_to structure_content_type_path(@content_type), notice: 'Content type was successfully created.' }
+        format.html { redirect_to [:structure, @content_type], notice: 'Content type was successfully created.' }
         format.json { render json: @content_type, status: :created, location: @content_type }
       else
         format.html { render action: "new" }
@@ -60,7 +60,7 @@ class Structure::ContentTypesController < ApplicationController
 
     respond_to do |format|
       if @content_type.update_attributes(params[:content_type])
-        format.html { redirect_to structure_content_type_path(@content_type), notice: 'Content type was successfully updated.' }
+        format.html { redirect_to [:structure, @content_type], notice: 'Content type was successfully updated.' }
         format.json { head :no_content }
       else
         format.html { render action: "edit" }
@@ -76,7 +76,7 @@ class Structure::ContentTypesController < ApplicationController
     @content_type.destroy
 
     respond_to do |format|
-      format.html { redirect_to content_types_url }
+      format.html { redirect_to structure_content_types_url }
       format.json { head :no_content }
     end
   end
