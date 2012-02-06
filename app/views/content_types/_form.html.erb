@@ -14,9 +14,16 @@
   <%= f.label :name %><br />
   <%= f.text_field :name %>
 
+  Fields:
   <div id="fields">
-    <%= add_field_link("(add field)", f, nil) %>
+    <%= add_field_link("(add field)", f) %>
     <%= render :partial => 'field', :collection => @content_type.fields, :locals => {:f => f} %>
+  </div>
+
+  Relationships:
+  <div id="relationships">
+    <%= add_relationship_link("(add relationship)", f) %>
+    <%= render :partial => 'relationship', :collection => @content_type.relationships, :locals => {:f => f} %>
   </div>
 
 
