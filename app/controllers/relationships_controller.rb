@@ -44,7 +44,7 @@ class RelationshipsController < ApplicationController
     @relationship = Relationship.new(params[:relationship])
 
     respond_to do |format|
-      if @relationship.save
+      if @relationship.save 
         ContentType.add_relationship(@relationship)
         format.html { redirect_to @relationship, notice: 'Relationship was successfully created.' }
         format.json { render json: @relationship, status: :created, location: @relationship }

@@ -1,4 +1,4 @@
-<%= form_for(@content_type) do |f| %>
+<%= form_for @content_type do |f| %>
   <% if @content_type.errors.any? %>
     <div id="error_explanation">
       <h2><%= pluralize(@content_type.errors.count, "error") %> prohibited this content_type from being saved:</h2>
@@ -11,7 +11,14 @@
     </div>
   <% end %>
 
-  Name: <%= f.text_field :name %>
+  <%= f.label :name %><br />
+  <%= f.text_field :name %>
+
+  <div id="fields">
+    <%= add_field_link("(add field)", f, nil) %>
+    <%= render :partial => 'field', :collection => @content_type.fields, :locals => {:f => f} %>
+  </div>
+
 
   <div class="actions">
     <%= f.submit %>
