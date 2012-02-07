@@ -1,7 +1,7 @@
 <div class="relationship">
  	<%= f.fields_for :relationships, relationship, :index => nil do |f_nested| %>
-    	<%= f_nested.select(:type, Relationship.get_type_options.collect {|f| [f, Relationship.get_type_options.index(f)]}, {:include_blank => true}) %>
-    	<%= f_nested.select(:to_id, ContentType.all.collect {|c| [c.name, c._id]}, {:include_blank => true}) %>
+    	<%= f_nested.select(:type, Relationship.get_type_options.collect {|f| [f, Relationship.get_type_options.index(f)]}) %>
+    	<%= f_nested.select(:to_id, ContentType.all.collect {|c| [c.name, c._id]}) %>
     	<!-- TODO: Fix embedded JS -->
     	<%= link_to_function "(remove)", "$(this).parent().remove()" %>
 	<% end %>

@@ -1,6 +1,7 @@
 class ContentType
   include MongoMapper::Document
   after_save :write_to_file, :update_children
+  after_destroy :remove_file
 
   key :name, String
 
@@ -12,12 +13,28 @@ class ContentType
     ContentType.where('relationships.to_id' => self._id).all
   end
 
+  def update_embedded_documents(params)
+    if params[:fields] == nil
+      self.fields = []
+      changed = true
+    end
+    if params[:relationships] == nil
+      self.relationships = []
+      changed = true
+    end
+    if changed
+      self.save
+    end
+    return true
+  end
+
   def write_to_file
     # name standardized
     name = self.name.singularize.tr(' ','_')
     model_name = name.camelize
     filename = File.join('app', 'models', (name.underscore + '.rb'))
     File.open(filename, 'w+') do |f|
+      # Class declaration
       f << "class #{model_name}\n"
       f << "\tinclude MongoMapper::Document\n"
       # Fields
@@ -38,6 +55,13 @@ class ContentType
       end
       f << "end"
     end
+  end
+
+  private
+  def remove_file
+    name = self.name.singularize.tr(' ','_')
+    filename = File.join('app', 'models', (name.underscore + '.rb'))
+    File.delete(filename)
   end
 
   private

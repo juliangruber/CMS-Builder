@@ -59,7 +59,7 @@ class Structure::ContentTypesController < ApplicationController
     @content_type = ContentType.find(params[:id])
 
     respond_to do |format|
-      if @content_type.update_attributes(params[:content_type])
+      if @content_type.update_embedded_documents(params[:content_type]) && @content_type.update_attributes(params[:content_type])
         format.html { redirect_to [:structure, @content_type], notice: 'Content type was successfully updated.' }
         format.json { head :no_content }
       else
