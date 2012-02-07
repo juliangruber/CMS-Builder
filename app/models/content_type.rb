@@ -1,5 +1,6 @@
 class ContentType
   include MongoMapper::Document
+  after_save :write_to_file, :update_children
 
   key :name, String
 
@@ -7,10 +8,42 @@ class ContentType
   many :relationships
   many :fields
 
-  # def self.add_relationship(relationship)
-  # 	self.find([relationship.from_id, relationship.to_id]).each do |rel|
-  #         rel.relationship_ids << relationship._id
-  #         rel.save
-  #       end
-  # end
+  def from
+    ContentType.where('relationships.to_id' => self._id).all
+  end
+
+  def write_to_file
+    # name standardized
+    name = self.name.singularize.tr(' ','_')
+    model_name = name.camelize
+    filename = File.join('app', 'models', (name.underscore + '.rb'))
+    File.open(filename, 'w+') do |f|
+      f << "class #{model_name}\n"
+      f << "\tinclude MongoMapper::Document\n"
+      # Fields
+      self.fields.each do |field|
+        if (Field.get_type_options[field.type] == 'Timestamp')
+          f << "\ttimestamps!\n"
+        else
+          f << "\tkey :" + field.title.singularize.tr(' ','_').underscore + ", String\n"
+        end
+      end
+      # Children Relationships
+      self.relationships.each do |relationship|
+       f << "\tmany :" + relationship.to.name.pluralize.tr(' ','_').underscore + "\n"
+      end
+      # Parent Relationships
+      self.from.each do |content_type|
+       f << "\tbelongs_to :" + content_type.name.singularize.tr(' ','_').underscore + "\n"
+      end
+      f << "end"
+    end
+  end
+
+  private
+  def update_children
+    self.relationships.each do |relationship|
+      relationship.to.write_to_file
+    end
+  end
 end

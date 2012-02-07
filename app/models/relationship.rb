@@ -6,6 +6,6 @@ class Relationship
 
   def self.get_type_options
 	#[["has many", 0], ["has one", 1]]
-	['has_many', 'has_one']
+	['has_many']
   end
 end

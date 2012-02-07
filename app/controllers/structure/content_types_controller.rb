@@ -17,7 +17,7 @@ class Structure::ContentTypesController < ApplicationController
 
     respond_to do |format|
       format.html # show.html.erb
-      format.json { render json: @content_type }
+      format.json { render json: @content_type, :include => :relationships }
     end
   end
 
