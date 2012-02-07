@@ -3,7 +3,7 @@
     	<%= f_nested.label :title %>
     	<%= f_nested.text_field :title %>
     	<%= f_nested.label :type %>
-    	<%= f_nested.select(:type, Field.get_type_options) %>
+    	<%= f_nested.select(:type, Field.get_type_options.collect {|f| [f, Field.get_type_options.index(f)]}) %>
     	<!-- TODO: Fix embedded JS -->
     	<%= link_to_function "(remove)", "$(this).parent().remove()" %>
 	<% end %>

@@ -1,5 +1,16 @@
 <p id="notice"><%= notice %></p>
 
+<h1>ContentType: <%= @content_type.name %></h1>
+
+<h2>Fields</h2>
+<ul><% @content_type.fields.each do |field| %>
+	<li><%= field.title %> : <%= Field.get_type_options[field.type] %></li>
+<% end %></ul>
+
+<h2>Relationships</h2>
+<ul><% @content_type.relationships.each do |relationship| %>
+	<li><%= Relationship.get_type_options[relationship.type] %> <%= relationship.to.name %></li>
+<% end %></ul>
 
 <%= link_to 'Edit', edit_structure_content_type_path(@content_type) %> |
 <%= link_to 'Back', structure_content_types_path %>
