@@ -11,9 +11,9 @@
 <% @content_types.each do |content_type| %>
   <tr>
     <td><%= content_type.name %></td>
-    <td><%= link_to 'Show', [:structure, content_type] %></td>
+    <td><%= link_to 'Show', content_type %></td>
     <td><%= link_to 'Edit', edit_structure_content_type_path(content_type) %></td>
-    <td><%= link_to 'Destroy', [:structure, content_type], confirm: 'Are you sure?', method: :delete %></td>
+    <td><%= link_to 'Destroy', content_type, confirm: 'Are you sure?', method: :delete %></td>
   </tr>
 <% end %>
 </table>

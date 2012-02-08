@@ -1,4 +1,4 @@
-class ContentType
+class Structure::ContentType
   include MongoMapper::Document
   after_save :write_to_file, :update_children
   after_destroy :remove_file, :update_children, :update_parents
@@ -6,11 +6,11 @@ class ContentType
   key :name, String
 
   # Embedded Keys
-  many :relationships
-  many :fields
+  many :relationships, :class_name => 'Structure::Relationship'
+  many :fields, :class_name => 'Structure::Field'
 
   def from
-    ContentType.where('relationships.to_id' => self._id).all
+    Structure::ContentType.where('relationships.to_id' => self._id).all
   end
 
   def update_embedded_documents(params)
@@ -39,7 +39,7 @@ class ContentType
       f << "\tinclude MongoMapper::Document\n"
       # Fields
       self.fields.each do |field|
-        if (Field.get_type_options[field.type] == 'Timestamp')
+        if (Structure::Field.get_type_options[field.type] == 'Timestamp')
           f << "\ttimestamps!\n"
         else
           f << "\tkey :" + field.title.singularize.tr(' ','_').underscore + ", String\n"

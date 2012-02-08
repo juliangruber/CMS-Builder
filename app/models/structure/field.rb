@@ -1,4 +1,4 @@
-class Field
+class Structure::Field
   include MongoMapper::EmbeddedDocument
 
   key :title, String
