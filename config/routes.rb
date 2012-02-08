@@ -58,5 +58,6 @@ Cms::Application.routes.draw do
 
   namespace :structure do
     resources :content_types
+    resources :pages
   end
 end

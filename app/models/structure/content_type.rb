@@ -8,9 +8,15 @@ class Structure::ContentType
   # Embedded Keys
   many :relationships, :class_name => 'Structure::Relationship'
   many :fields, :class_name => 'Structure::Field'
+  many :pages, :class_name => 'Structure::Page'
 
   def from
     Structure::ContentType.where('relationships.to_id' => self._id).all
+  end
+
+  # Necessary?
+  def pages
+    Structure::Page.where('content_type_id' => self._id).all
   end
 
   def update_embedded_documents(params)
