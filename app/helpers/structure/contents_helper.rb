@@ -1,0 +1,2 @@
+module Structure::ContentsHelper
+end

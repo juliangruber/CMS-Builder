@@ -16,6 +16,7 @@ class Structure::Page
   		f << "\tnamespace :structure do\n"
   		f << "\t\tresources :content_types\n"
   		f << "\t\tresources :pages\n"
+  		f << "\t\tresources :contents\n"
   		f << "\tend\n"
   		# Content Routes
   		Structure::Page.all.each do |page|

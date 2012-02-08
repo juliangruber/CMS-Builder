@@ -1,0 +1,21 @@
+<h1>Listing structure_contents</h1>
+
+<table>
+  <tr>
+    <th></th>
+    <th></th>
+    <th></th>
+  </tr>
+
+<% @structure_contents.each do |structure_content| %>
+  <tr>
+    <td><%= link_to 'Show', structure_content %></td>
+    <td><%= link_to 'Edit', edit_structure_content_path(structure_content) %></td>
+    <td><%= link_to 'Destroy', structure_content, confirm: 'Are you sure?', method: :delete %></td>
+  </tr>
+<% end %>
+</table>
+
+<br />
+
+<%= link_to 'New Content', new_structure_content_path %>
