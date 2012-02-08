@@ -10,7 +10,7 @@
 <% @structure_pages.each do |structure_page| %>
   <tr>
     <td><%= structure_page.name %></td>
-    <td><%= link_to 'Show', structure_page %></td>
+    <td><%= link_to 'Show', "/#{structure_page.name.downcase.pluralize}" %></td>
     <td><%= link_to 'Edit', edit_structure_page_path(structure_page) %></td>
     <td><%= link_to 'Destroy', structure_page, confirm: 'Are you sure?', method: :delete %></td>
   </tr>
