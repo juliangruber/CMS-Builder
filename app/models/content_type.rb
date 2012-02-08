@@ -1,7 +1,7 @@
 class ContentType
   include MongoMapper::Document
   after_save :write_to_file, :update_children
-  after_destroy :remove_file
+  after_destroy :remove_file, :update_children, :update_parents
 
   key :name, String
 
@@ -68,6 +68,21 @@ class ContentType
   def update_children
     self.relationships.each do |relationship|
       relationship.to.write_to_file
+    end
+  end
+
+  private
+  def update_parents
+    self.from.each do |content_type|
+      # remove obsolete relationships
+      content_type.relationships.each do |relationship|
+        if relationship.to_id == self._id
+          content_type.pull(:relationships => {:to_id => self._id})
+        end
+      end
+      # rewrite model file
+      content_type.reload
+      content_type.write_to_file
     end
   end
 end
