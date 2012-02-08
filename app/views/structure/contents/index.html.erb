@@ -1,20 +1,21 @@
 <h1>Listing Contents</h1>
 
-<table>
-  <tr>
-    <th></th>
-    <th></th>
-    <th></th>
-  </tr>
-
-<% @contents.each do |structure_content| %>
-  <tr>
-    <td><%= link_to 'Show', structure_content %></td>
-    <td><%= link_to 'Edit', edit_structure_content_path(structure_content) %></td>
-    <td><%= link_to 'Destroy', structure_content, confirm: 'Are you sure?', method: :delete %></td>
-  </tr>
+<ul>
+<% @contents.each do |content_type| %>
+    <li><%= "#{content_type[:name]} (#{content_type[:contents].count})" %> (<%= link_to 'Show', "/#{content_type[:name].downcase}" %>)
+      <% if content_type[:contents].count > 0 %>
+        <ul>
+          <% content_type[:contents].each do |content| %>
+            <li><%= content.title %> (<%= link_to 'Show', content %>)</li>
+          <% end %>
+        </ul>
+      <% end %>
+    </li>
+    <!--<td><%= link_to 'Show', content_type %></td>
+    <td><%= link_to 'Edit', edit_structure_content_path(content_type) %></td>
+    <td><%= link_to 'Destroy', content_type, confirm: 'Are you sure?', method: :delete %></td>-->
 <% end %>
-</table>
+</ul>
 
 <br />
 

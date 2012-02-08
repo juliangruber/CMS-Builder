@@ -13,14 +13,14 @@ class Structure::Page
   	File.open(filename, "w+") do |f|
   		f << "Cms::Application.routes.draw do\n"
   		# Structure Routes
-  		f << "\tnamespace :structure do\n"
-  		f << "\t\tresources :content_types\n"
-  		f << "\t\tresources :pages\n"
-  		f << "\t\tresources :contents\n"
-  		f << "\tend\n"
+  		f << "	namespace :structure do\n"
+  		f << "		resources :content_types\n"
+  		f << "		resources :pages\n"
+  		f << "		resources :contents\n"
+  		f << "	end\n"
   		# Content Routes
   		Structure::Page.all.each do |page|
-  			f << "\tresources :" + page.name.downcase.pluralize + "\n"
+  			f << "	resources :" + page.name.downcase.pluralize + "\n"
   		end
   		f << "end"
   	end
@@ -28,16 +28,26 @@ class Structure::Page
 
   private
   def write_controller_file
+  	modelname = self.content_type.name.singularize.tr(' ','_').camelize
+  	variablename = self.content_type.name.downcase
   	filename = File.join("app", "controllers", self.name.downcase.pluralize + "_controller.rb")
   	File.open(filename, "w+") do |f|
-  		f << "class #{self.name.pluralize.camelize}Controller < ApplicationController\n"
-  		f << "\tdef index\n"
-  		f << "\t\t@#{self.content_type.name.pluralize.downcase} = #{self.content_type.name.singularize.tr(' ','_').camelize}.all\n"
-  		f << "\t\trespond_to do |format|\n"
-  		f << "\t\t\tformat.html { render json: @#{self.content_type.name.pluralize.downcase} }\n"
-  		f << "\t\tend\n"
-  		f << "\tend\n"
-  		f << "end\n"
+  		f <<
+"class #{self.name.pluralize.camelize}Controller < ApplicationController
+	def index
+		@#{variablename.pluralize} = #{modelname}.all
+		respond_to do |format|
+			format.html { render json: @#{variablename.pluralize} }
+		end
+	end
+
+	def show
+		@#{variablename.singularize} = #{modelname}.find(params[:id])
+		respond_to do |format|
+			format.html { render json: @#{variablename.singularize} }
+		end
+	end
+end"
   	end
   end
 end
