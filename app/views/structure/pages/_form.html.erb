@@ -11,7 +11,13 @@
     </div>
   <% end %>
 
+  <%= f.label :name %><br />
+  <%= f.text_field :name %><br /><br />
+
+  <%= f.label :content_type_id %><br />
+  <%= f.select(:content_type_id, Structure::ContentType.all.collect {|c| [c.name, c._id]}) %><br /><br />
+
   <div class="actions">
     <%= f.submit %>
-  </div>
+  </div><br />
 <% end %>

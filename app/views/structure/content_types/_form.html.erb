@@ -12,22 +12,22 @@
   <% end %>
 
   <%= f.label :name %><br />
-  <%= f.text_field :name %>
+  <%= f.text_field :name %><br /><br />
 
   Fields:
   <div id="fields">
     <%= add_field_link("(add field)", f) %>
     <%= render :partial => 'field', :collection => @content_type.fields, :locals => {:f => f} %>
-  </div>
+  </div><br />
 
   Relationships:
   <div id="relationships">
     <%= add_relationship_link("(add relationship)", f) %>
     <%= render :partial => 'relationship', :collection => @content_type.relationships, :locals => {:f => f} %>
-  </div>
+  </div><br />
 
 
   <div class="actions">
     <%= f.submit %>
-  </div>
+  </div><br />
 <% end %>
