@@ -4,7 +4,7 @@ class Structure::ContentsController < ApplicationController
   def index
     @contents = []
     Structure::ContentType.all.each do |content_type|
-      obj = Object.const_get(content_type.name)
+      obj = Object.const_get(content_type.name.capitalize)
       @contents.push({
         :name => content_type.name.pluralize,
         :contents => obj.all

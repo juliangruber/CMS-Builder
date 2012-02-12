@@ -6,7 +6,7 @@
       <% if content_type[:contents].count > 0 %>
         <ul>
           <% content_type[:contents].each do |content| %>
-            <li><%= content.title %> (<%= link_to 'Show', content %>)</li>
+            <li><%= content.title %><% if Structure::Page.where(:content_type => content_type[:id]).all.count > 0 %> (<%= link_to 'Show', content %>)<% end %></li>
           <% end %>
         </ul>
       <% end %>

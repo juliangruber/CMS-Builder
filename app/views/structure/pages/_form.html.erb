@@ -14,6 +14,9 @@
   <%= f.label :name %><br />
   <%= f.text_field :name %><br /><br />
 
+  <%= f.label :is_homepage %>
+  <%= f.check_box :is_homepage %><br /><br />
+
   <%= f.label :content_type_id %><br />
   <%= f.select(:content_type_id, Structure::ContentType.all.collect {|c| [c.name, c._id]}) %><br /><br />
 
