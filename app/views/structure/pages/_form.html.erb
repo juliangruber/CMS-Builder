@@ -18,7 +18,11 @@
   <%= f.check_box :is_homepage %><br /><br />
 
   <%= f.label :content_type_id %><br />
-  <%= f.select(:content_type_id, Structure::ContentType.all.collect {|c| [c.name, c._id]}) %><br /><br />
+  <%= f.select(:content_type_id, Structure::ContentType.all.collect {|c| [c.name, c._id]}, {:include_blank => true}) %><br /><br />
+
+  <%= content_tag "div", id: "contents", data: {contents: Structure::ContentType.contents} do %>
+    <%= f.select(:content_id, [], {:include_blank => true}) %>
+  <% end %>
 
   <div class="actions">
     <%= f.submit %>

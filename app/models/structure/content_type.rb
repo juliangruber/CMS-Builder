@@ -19,6 +19,20 @@ class Structure::ContentType
     Structure::Page.where('content_type_id' => self._id).all
   end
 
+  def self.contents
+    contents = []
+    all.each do |content_type|
+      obj = Object.const_get(content_type.name.capitalize)
+      contents.push({
+        :name => content_type.name.pluralize,
+        :id => content_type.id,
+        :has_page => Structure::Page.where(:content_type_id => content_type.id).all.count > 0,
+        :contents => obj.all
+        })
+    end
+    contents
+  end
+
   def update_embedded_documents(params)
     if params[:fields] == nil
       self.fields = []
@@ -41,8 +55,9 @@ class Structure::ContentType
     filename = File.join('app', 'models', (name.underscore + '.rb'))
     File.open(filename, 'w+') do |f|
       # Class declaration
-      f << "class #{model_name}\n"
-      f << "\tinclude MongoMapper::Document\n"
+      f << "class #{model_name}
+  include MongoMapper::Document
+  many :pages, :class_name => Structure::Page, :polymorphic => true\n"
       # Fields
       self.fields.each do |field|
         if (Structure::Field.get_type_options[field.type] == 'Timestamp')

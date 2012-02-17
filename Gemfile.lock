@@ -30,6 +30,8 @@ GEM
       multi_json (~> 1.0)
     addressable (2.2.6)
     arel (3.0.0)
+    bowtie (0.5.1)
+      sinatra (>= 0.9.4)
     bson (1.5.2)
     bson_ext (1.5.2)
       bson (= 1.5.2)
@@ -138,6 +140,7 @@ PLATFORMS
   ruby
 
 DEPENDENCIES
+  bowtie
   bson_ext
   code_buddy
   coffee-rails (~> 3.2.1)

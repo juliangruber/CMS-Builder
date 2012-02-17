@@ -7,6 +7,7 @@ class Structure::Page
   key :name, String
   key :is_homepage, Integer
   belongs_to :content_type, :class_name => "Structure::ContentType"
+  belongs_to :content, :polymorphic => true
 
   private
   def write_routes

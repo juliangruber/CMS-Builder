@@ -2,11 +2,11 @@
 
 <ul>
 <% @contents.each do |content_type| %>
-    <li><%= "#{content_type[:name]} (#{content_type[:contents].count})" %> (<%= link_to 'Show', "/#{content_type[:name].downcase}" %>)
+    <li><%= "#{content_type[:name]} (#{content_type[:contents].count})" %><% if content_type[:has_page] %> (<%= link_to 'Show', "/#{content_type[:name].downcase}" %>)<% end %>
       <% if content_type[:contents].count > 0 %>
         <ul>
           <% content_type[:contents].each do |content| %>
-            <li><%= content.title %><% if Structure::Page.where(:content_type => content_type[:id]).all.count > 0 %> (<%= link_to 'Show', content %>)<% end %></li>
+            <li><%= content.title %><% if content_type[:has_page] %> (<%= link_to 'Show', content %>)<% end %></li>
           <% end %>
         </ul>
       <% end %>

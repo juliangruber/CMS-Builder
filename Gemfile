@@ -5,6 +5,7 @@ gem 'mongo_mapper'
 gem 'bson_ext'
 gem 'code_buddy'
 gem 'json'
+gem 'bowtie'
 
 # Bundle edge Rails instead:
 # gem 'rails', :git => 'git://github.com/rails/rails.git'

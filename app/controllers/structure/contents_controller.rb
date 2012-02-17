@@ -2,14 +2,7 @@ class Structure::ContentsController < ApplicationController
   # GET /structure/contents
   # GET /structure/contents.json
   def index
-    @contents = []
-    Structure::ContentType.all.each do |content_type|
-      obj = Object.const_get(content_type.name.capitalize)
-      @contents.push({
-        :name => content_type.name.pluralize,
-        :contents => obj.all
-        })
-    end
+    @contents = Structure::ContentType.contents
 
     respond_to do |format|
       format.html # index.html.erb
